@@ -1,3 +1,5 @@
 .idea
 venv
 .DS_Store
+pagila-insert-data.sql
+pagila-schema.sql

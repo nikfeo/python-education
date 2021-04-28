@@ -3,3 +3,5 @@ venv
 .DS_Store
 pagila-insert-data.sql
 pagila-schema.sql
+Pipfile
+Pipfile.lock

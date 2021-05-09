@@ -38,6 +38,9 @@ class Car(Transport):
         self.fuel_type = fuel_type
         self.wheels = 4
 
+    def stop(self):
+        return f"{self.kind} stopped. Get the key out!"
+
 
 class Bicycle(Transport):
     """Creates class Bicycle which inherits from class Transport"""
@@ -73,12 +76,12 @@ class Plane(Transport):
         return f"{self.color} {self.kind} has landed"
 
 
-class Motorcycle(Bicycle, Transport):
-    """Creates class Motorcycle which inherits from classes Transport and Bicycle"""
+class Motorcycle(Bicycle, Car):
+    """Creates class Motorcycle which inherits from classes Car and Bicycle"""
 
     def __init__(self, kind, color, number, fuel_type):
-        Transport.__init__(self, number, fuel_type)
         super().__init__(kind, color)
+        Car.__init__(self, number, fuel_type)
 
     @staticmethod
     def start():

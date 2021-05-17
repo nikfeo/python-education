@@ -61,6 +61,25 @@ class Cafe:
         self.menu_list.remove(section_name)
 
 
+class Table:
+    """Creates class Table with table ID and capacity"""
+    all_tables = {}
+
+    def __init__(self, table_id, capacity):
+        self.capacity = capacity
+        self.table_id = table_id
+        self.all_tables[table_id] = capacity
+
+    def show_all_tables(self):
+        """Method shows all tables with capacity"""
+        for table in self.all_tables:
+            print(f"Table №{table}: for {self.all_tables[table][0]} pers.")
+
+    def remove_table(self, table_id):
+        """Method removes table from dict {all_table}"""
+        del self.all_tables[table_id]
+
+
 class MenuSection:
     """Creates class MenuSection with main info and item list"""
     _id = 0
@@ -107,7 +126,7 @@ class Item:
 
 class Order:
     """Creates class MenuSection with name, price and description"""
-    id = 1
+    id = 0
     item_list = {}
     total_price = 0
     delivery_address = ''
@@ -209,8 +228,20 @@ class Employee:
 
 class Waiter(Employee):
     """Creates class Waiter that inherits from class Employee"""
+    serving_tables = {}
+
     def __init__(self, name, salary, position="Waiter"):
         super().__init__(name, salary, position)
+
+    def start_serve_table(self, table_number: object, order_id: object):
+        """Method allow Waiter to start serving table
+        and adds table's ID and order`s ID to the dict {cafe_tables}"""
+        self.serving_tables[table_number.id] = order_id.id
+
+    def show_serving_tables(self):
+        """Method shows all tables serving by Waiter"""
+        for table in self.serving_tables:
+            print(f"Table №{table} has order №{self.serving_tables[table]}")
 
 
 class Cook(Employee):
@@ -252,9 +283,11 @@ class Administrator(Employee):
 
 gorcafe = Cafe('ZuZu', 'Kharkiv, Ukraine', 120)
 nikita = Owner('Nikita Feoktistov')
-gorcafe.add_employee('Vasyliy Zaharov', 'waiter')
+gorcafe.add_employee('Vasiliy', 'waiter')
+table1 = Table(1, 4)
 customer_1 = Customer('david', 1000)
 admin1 = Administrator('Olya', 2000)
+waiter1 = Waiter('Vasiliy', 500)
 order_1 = Order()
 item_1 = Item('meat', 100)
 item_2 = Item('coffee', 15)
@@ -277,3 +310,6 @@ print(customer_1.cash_balance)
 
 admin1.set_cash_balance(gorcafe, 654)
 print(gorcafe.money_balance)
+
+waiter1.start_serve_table(table1, order_1)
+waiter1.show_serving_tables()

@@ -15,10 +15,10 @@ class Owner:
     cafes = {}
     money_balance = 3000
 
-    def __init__(self, name):
+    def __init__(self, name: str):
         self.name = name
 
-    def get_profit(self, money_count, cafe_name: object):
+    def get_profit(self, money_count: int, cafe_name: object):
         """This method gets transfers money from the cafe account to the owner's account"""
         self.money_balance += money_count
         cafe_name.money_balance -= money_count
@@ -44,15 +44,15 @@ class Cafe:
         self.address = address
         self.capacity = capacity
 
-    def add_employee(self, name, position):
+    def add_employee(self, name: str, position: str):
         """Method adds employee to the 'employee' dict"""
         self.employees[name] = position
 
-    def remove_employee(self, name):
+    def remove_employee(self, name: str):
         """Method removes employee from the dict {employee}'"""
         del self.employees[name]
 
-    def add_menu_section(self, section_name):
+    def add_menu_section(self, section_name: str):
         """Method adds menu section to the list [menu_list]"""
         self.menu_list.append(section_name)
 
@@ -65,7 +65,7 @@ class Table:
     """Creates class Table with table ID and capacity"""
     all_tables = {}
 
-    def __init__(self, table_id, capacity):
+    def __init__(self, table_id: int, capacity: int):
         self.capacity = capacity
         self.table_id = table_id
         self.all_tables[table_id] = capacity
@@ -75,7 +75,7 @@ class Table:
         for table in self.all_tables:
             print(f"Table №{table}: for {self.all_tables[table][0]} pers.")
 
-    def remove_table(self, table_id):
+    def remove_table(self, table_id: int):
         """Method removes table from dict {all_table}"""
         del self.all_tables[table_id]
 
@@ -143,7 +143,7 @@ class Order:
         """Method adds item to the orders`s list [item_list]"""
         self.item_list[item_name] = [quantity, price]
 
-    def remove_item(self, item_name):
+    def remove_item(self, item_name: str):
         """Method removes item from the orders`s list [item_list]"""
         del self.item_list[item_name]
 
@@ -164,11 +164,11 @@ class DeliveryInfo:
     contact_number = None
     status = None
 
-    def __init__(self, order_obj: object, address):
+    def __init__(self, order_obj: object, address: str):
         self.order_id = order_obj.id
         self.address = address
 
-    def set_contact_number(self, customer_obj):
+    def set_contact_number(self, customer_obj: object):
         """Method sets contact number of customer given in attribute"""
         self.contact_number = customer_obj.comtact_number
 
@@ -186,7 +186,7 @@ class Customer:
     _address = ''
     delivery = False
 
-    def __init__(self, name, cash_balance):
+    def __init__(self, name: str, cash_balance: int):
         Customer._id += 1
         self.name = name
         self.cash_balance = cash_balance
@@ -212,7 +212,7 @@ class Employee:
     orders_list = {}
     order_activity = {}
 
-    def __init__(self, name, salary, position):
+    def __init__(self, name: str, salary: int, position: str):
         self.name = name
         self.salary = salary
         self.position = position
@@ -230,7 +230,7 @@ class Waiter(Employee):
     """Creates class Waiter that inherits from class Employee"""
     serving_tables = {}
 
-    def __init__(self, name, salary, position="Waiter"):
+    def __init__(self, name: str, salary: int, position="Waiter"):
         super().__init__(name, salary, position)
 
     def start_serve_table(self, table_number: object, order_id: object):
@@ -246,7 +246,7 @@ class Waiter(Employee):
 
 class Cook(Employee):
     """Creates class Cook that inherits from class Employee"""
-    def __init__(self, name, salary, position="Cook"):
+    def __init__(self, name: str, salary: int, position="Cook"):
         super().__init__(name, salary, position)
 
     def prepare_item(self, item_name: object, quantity: object, order_id: object):
@@ -261,10 +261,10 @@ class Administrator(Employee):
     with new static attribute - employee_bonuses"""
     employee_bonuses = {}
 
-    def __init__(self, name, salary, position="Administrator"):
+    def __init__(self, name: str, salary: int, position="Administrator"):
         super().__init__(name, salary, position)
 
-    def cancel_order(self, order_id):
+    def cancel_order(self, order_id: int):
         """Method allows Administrator to cancel the order"""
         del self.order_activity[order_id]
         del self.orders_list[order_id]

@@ -8,6 +8,9 @@ class SentenceIterator:
         self._words = words
         self._index = 0
 
+    def __iter__(self):
+        return self
+
     def __next__(self):
         """Method returns the next item in the sequence"""
         if self._index >= len(self._words):
@@ -64,4 +67,6 @@ for i in gandalf_vs_balrog:
 print(f"{' '.join(gandalf_vs_balrog[8:])}")
 print(gandalf_vs_balrog.words)
 print(gandalf_vs_balrog.other_chars)
+print(gandalf_vs_balrog._words())
+print(next(gandalf_vs_balrog._words()))
 next(gandalf_vs_balrog._words())

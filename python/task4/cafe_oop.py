@@ -6,29 +6,6 @@ OOP principles (Inheritance and Encapsulation). Access
 modifiers and static methods are required.
 """
 
-from typing import Any
-
-
-class Owner:
-    """Creates Owner class, it`s private info and money_balance"""
-    _address = ''
-    _contact_number = None
-    email = ''
-    cafes = {}
-    money_balance = 3000
-
-    def __init__(self, name: str):
-        self.name = name
-
-    def get_profit(self, money_count: int, cafe_name: Any):
-        """This method gets transfers money from the cafe account to the owner's account"""
-        self.money_balance += money_count
-        cafe_name.money_balance -= money_count
-
-    def add_new_cafe(self, new_cafe_name: str, new_cafe_address: str, new_cafe_capacity: int):
-        """Method allows Owner to create and add new cafe to the dict {cafe}"""
-        self.cafes[new_cafe_name] = [new_cafe_address, new_cafe_capacity]
-
 
 class Cafe:
     """Creates class Cafe with main info, menu list, employee list and money_balance"""
@@ -61,6 +38,28 @@ class Cafe:
     def remove_menu_section(self, section_name: str):
         """Method removes menu section from the list [menu_list]"""
         self.menu_list.remove(section_name)
+
+
+class Owner:
+    """Creates Owner class, it`s private info and money_balance"""
+    _address = ''
+    _contact_number = None
+    email = ''
+    cafes = {}
+    money_balance = 3000
+
+    def __init__(self, name: str):
+        self.name = name
+
+    def get_profit(self, money_count: int, cafe_obj: Cafe):
+        """This method gets transfers money from the cafe account to the owner's account"""
+        self.money_balance += money_count
+        cafe_obj.money_balance -= money_count
+
+    def add_new_cafe(self, new_cafe_name: str, new_cafe_address: str, new_cafe_capacity: int):
+        """Method allows Owner to create and add new cafe to the dict {cafe}"""
+        self.cafes[new_cafe_name] = [new_cafe_address, new_cafe_capacity]
+
 
 
 class Table:
@@ -141,9 +140,9 @@ class Order:
         """Method sets order status"""
         self.status = new_status
 
-    def add_item(self, item_name: Any, quantity: int, price: int):
+    def add_item(self, item_obj: Item, quantity: int, price: int):
         """Method adds item to the orders`s list [item_list]"""
-        self.item_list[item_name] = [quantity, price]
+        self.item_list[item_obj.name] = [quantity, price]
 
     def remove_item(self, item_name: str):
         """Method removes item from the orders`s list [item_list]"""
@@ -161,28 +160,10 @@ class Order:
         print(self.total_price)
 
 
-class DeliveryInfo:
-    """Creates class DeliveryInfo with main info"""
-    contact_number = None
-    status = None
-
-    def __init__(self, order_obj: Any, address: str):
-        self.order_id = order_obj.id
-        self.address = address
-
-    def set_contact_number(self, customer_obj: object):
-        """Method sets contact number of customer given in attribute"""
-        self.contact_number = customer_obj.comtact_number
-
-    def set_status(self, new_status: str):
-        """Method sets new delivery status to the current order"""
-        self.status = new_status
-
-
 class Customer:
     """Creates class Customer with main info"""
     _id = 0
-    _contact_number = ''
+    contact_number = ''
     __username = ''
     __password = ''
     _address = ''
@@ -193,14 +174,33 @@ class Customer:
         self.name = name
         self.cash_balance = cash_balance
 
-    def pay_order(self, order_name: Any, order_total_price: Any):
+    def pay_order(self, order_obj: Order):
         """Method allows customer to pay order and show order`s ID and it˜s total price"""
-        self.cash_balance -= order_total_price
-        print(f"Ypu`ve just paid order №{order_name}, total price: {order_total_price}. Thank you!")
+        self.cash_balance -= order_obj.total_price
+        print(f"Ypu`ve just paid order №{order_obj.id},"
+              f"total price: {order_obj.total_price}. Thank you!")
 
     def delivery_order(self):
         """Method switches delivery status to 'True'"""
         self.delivery = True
+
+
+class DeliveryInfo:
+    """Creates class DeliveryInfo with main info"""
+    contact_number = None
+    status = None
+
+    def __init__(self, order_obj: Order, address: str):
+        self.order_id = order_obj.id
+        self.address = address
+
+    def set_contact_number(self, customer_obj: Customer):
+        """Method sets contact number of customer given in attribute"""
+        self.contact_number = customer_obj.contact_number
+
+    def set_status(self, new_status: str):
+        """Method sets new delivery status to the current order"""
+        self.status = new_status
 
 
 class Employee:
@@ -219,13 +219,13 @@ class Employee:
         self.salary = salary
         self.position = position
 
-    def add_new_order(self, order_id: Any, order_item_list: Any):
+    def add_new_order(self, order_obj: Order):
         """Method adds ID and item list of new order to the [order_list]"""
-        self.orders_list[order_id] = order_item_list
+        self.orders_list[order_obj.id] = order_obj.item_list
 
-    def order_status(self, order_id: Any, new_status: str):
+    def order_status(self, order_obj: Order, new_status: str):
         """Method adds ID and status of new order to the [order_activity]"""
-        self.order_activity[order_id] = new_status
+        self.order_activity[order_obj.id] = new_status
 
 
 class Waiter(Employee):
@@ -235,10 +235,10 @@ class Waiter(Employee):
     def __init__(self, name: str, salary: int, position="Waiter"):
         super().__init__(name, salary, position)
 
-    def start_serve_table(self, table_number: Any, order_id: Any):
+    def start_serve_table(self, table_obj: Table, order_obj: Order):
         """Method allow Waiter to start serving table
         and adds table's ID and order`s ID to the dict {cafe_tables}"""
-        self.serving_tables[table_number.table_id] = order_id.id
+        self.serving_tables[table_obj.table_id] = order_obj.id
 
     def show_serving_tables(self):
         """Method shows all tables serving by Waiter"""
@@ -251,11 +251,11 @@ class Cook(Employee):
     def __init__(self, name: str, salary: int, position="Cook"):
         super().__init__(name, salary, position)
 
-    def prepare_item(self, item_name: Any, quantity: Any, order_id: Any):
+    def prepare_item(self, item_obj: Item, quantity: int, order_obj: Order):
         """Method allows to Cook to prepare item and shows the process
         with item`s name, quantity and order`s id"""
-        print(f"Cook {self.name} has cooked {item_name}"
-              f"in quantity {quantity} for order №{order_id}")
+        print(f"Cook {self.name} has cooked {item_obj.name}"
+              f"in quantity {quantity} for order №{order_obj.id}")
 
 
 class Administrator(Employee):
@@ -271,14 +271,12 @@ class Administrator(Employee):
         del self.order_activity[order_id]
         del self.orders_list[order_id]
 
-    def set_employee_bonus(self, employee_name: Any,
-                           employee_position: Any,
-                           bonus_amount: int):
+    def set_employee_bonus(self, employee_obj: Employee, bonus_amount: int):
         """Method allows Administrator to set bonus for employee"""
-        self.employee_bonuses[employee_name] = [employee_position, bonus_amount]
+        self.employee_bonuses[employee_obj.name] = [employee_obj.position, bonus_amount]
 
     @staticmethod
-    def set_cash_balance(cafe_obj: Any, new_balance: int):
+    def set_cash_balance(cafe_obj: Cafe, new_balance: int):
         """Method allows Administrator to set money balance of the cafe"""
         cafe_obj.money_balance += new_balance
 
@@ -300,14 +298,14 @@ print(gorcafe.money_balance, nikita.money_balance)
 nikita.get_profit(500, gorcafe)
 print(gorcafe.money_balance, nikita.money_balance)
 
-order_1.add_item(item_1.name, 1, 150)
-order_1.add_item(item_2.name, 2, 25)
+order_1.add_item(item_1, 1, 150)
+order_1.add_item(item_2, 2, 25)
 print(order_1.item_list)
 
 order_1.show_order()
 order_1.show_total_price()
 
-customer_1.pay_order(order_1.id, order_1.total_price)
+customer_1.pay_order(order_1)
 print(customer_1.cash_balance)
 
 admin1.set_cash_balance(gorcafe, 654)

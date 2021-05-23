@@ -80,16 +80,10 @@ def test_product_change_price(meat):
     assert meat.price == 100
 
 
-
 @pytest.fixture
 def some_shop():
     """Returns some empty Shop object"""
     return Shop()
-
-
-# @pytest.fixture
-# def product_title():
-#     return 'test_product'
 
 
 def test_shop_add_product(some_shop, milk, meat):
@@ -101,24 +95,37 @@ def test_shop_add_product(some_shop, milk, meat):
     assert some_shop.products[1].price == 250
     assert some_shop.products[0].title == 'milk'
 
-#
-# def test_get_product_index(some_shop, milk):
-#     assert some_shop._get_product_index(milk) == 1
-
 
 @pytest.fixture
-def no_price_product():
-    """Returns no price Product instance."""
-    return Product('no_price_product', 0)
+def shop_meat_milk(milk, meat):
+    """Returns Shop object with milk and meat"""
+    return Shop([milk, meat])
 
 
-@pytest.fixture
-def no_quantity_product():
-    """Returns no quantity Product instance."""
-    return Product('no_quantity_product', 150, 0)
+def test_shop_get_product_index(shop_meat_milk):
+    assert shop_meat_milk._get_product_index('milk') == 0
+    assert shop_meat_milk._get_product_index('meat') == 1
+    assert shop_meat_milk._get_product_index('hwrtysssert') is None
+    with pytest.raises(TypeError):
+        shop_meat_milk._get_product_index()
 
 
+def test_shop_sell_product(shop_meat_milk):
+    assert shop_meat_milk.money == 0
+    assert shop_meat_milk.products[0].quantity == 2
+    assert shop_meat_milk.sell_product('milk') == 35
+    assert shop_meat_milk.products[0].quantity == 1
+    assert shop_meat_milk.money == 35
 
 
+def test_shop_sell_product_errors(shop_meat_milk):
+    with pytest.raises(TypeError):
+        shop_meat_milk.sell_product()
+    with pytest.raises(ValueError):
+        shop_meat_milk.sell_product('meat', 100)
 
 
+def test_shop_sell_product_all(shop_meat_milk):
+    shop_meat_milk.sell_product('meat', 10)
+    assert shop_meat_milk._get_product_index('meat') is None
+    assert shop_meat_milk.money == 2500

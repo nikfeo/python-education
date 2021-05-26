@@ -89,6 +89,10 @@ class Foreman(Builder):
         del self.new_brigade[spec_name]
         print(f'{spec_name} was fired')
 
+    def show_available_specialists(self):
+        for key in self.new_brigade:
+            print(f'{key} ---> {self.new_brigade[key]}')
+
     def do_work(self):
         print('Builds anything, just not with his own hands')
 
@@ -118,3 +122,4 @@ if __name__ == "__main__":
     print(alex_foreman['Stas'])
     del alex_foreman['Stas']
     print(alex_foreman.new_brigade)
+    alex_foreman.show_available_specialists()

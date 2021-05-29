@@ -1,3 +1,6 @@
 .idea
 venv
 .DS_Store
+ python/06_tests/software_testing/__pycache__/
+ python/06_tests/tests/__pycache__/
+ python/06_tests/tests/unit/__pycache__/

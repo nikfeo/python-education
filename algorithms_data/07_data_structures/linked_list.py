@@ -1,134 +1,154 @@
 """
-This module describes singly linked list
+This module describes linked list with head and tail (doubly linked)
 """
+
+
+class Node:
+    """
+    Describes Node class with data and next_item info
+    """
+    def __init__(self, data=None):
+        self.data = data
+        self.next_data = None
 
 
 class LinkedList:
     """
-    Describes singly linked list
+    Describes Linked List class
     """
-    head = None
-    tail = None
-
-    class Node:
-        """
-        Describes Node class with data and next_item info
-        """
-        data = None
-        next_item = None
-
-        def __init__(self, item, next_item=None):
-            self.item = item
-            self.next_item = next_item
+    def __init__(self):
+        self.head = None
+        self.tail = None
 
     def __len__(self):
-        """
-        Calculates length of the list and returns integer
-        """
         if not self.head:
             return 0
-        length = 1
-        node = self.head
-        while node.next_item:
-            length += 1
-            node = node.next_item
-        return length
+        list_length = 0
+        current_data = self.head
+        while current_data:
+            current_data = current_data.next_data
+            list_length += 1
+        return list_length
 
-    def append(self, data):
+    def prepend(self, new_data):
         """
-        Adds new node with data to the end of list
+        Adds new node with new data to the beginning of list
         """
-        node = self.Node(data)
+        new_node = Node(new_data)
         if not self.head:
-            self.head = node
-            self.tail = node
+            self.head = new_node
+            self.tail = new_node
         else:
-            self.tail.next_item = node
-            self.tail = node
+            new_node.next_data = self.head
+            self.head = new_node
 
-    def prepend(self, data):
+    def append(self, new_data):
         """
-        Adds new node with data to the beginning of list
+        Adds new node with new data to the end of list
         """
-        node = self.Node(data)
+        new_node = Node(new_data)
         if not self.head:
-            self.head = node
-            self.tail = node
+            self.head = new_node
+            self.tail = new_node
         else:
-            self.head.next_item = node
-            self.head = node
+            self.tail.next_data = new_node
+            self.tail = new_node
 
     def display(self):
         """
         Displays each item of the list on new string
         """
-        node = self.head
-        while node.next_item:
-            print(node.item)
-            node = node.next_item
-        print(node.item)
+        node_data = self.head
+        while node_data:
+            print(node_data.data)
+            node_data = node_data.next_data
 
-    def insert(self, item, index):
+    def lookup(self, data):
         """
-        Inserts item in list, using index
+        Allows to get index by data
         """
-        position = 0
-        node = self.head
-        previous_node = self.head
-        while position < index:
-            previous_node = node
-            node = node.next_item
-            position += 1
-        previous_node.next_item = self.Node(item, next_item=node)
-        return item
+        lookup_data = self.head
+        data_index = 0
+        while lookup_data:
+            if lookup_data.data == data:
+                return data_index
+            if not lookup_data.next_data:
+                raise ValueError("Lookup data is not in the linked list")
+            else:
+                lookup_data = lookup_data.next_data
+                data_index += 1
 
     def get(self, index):
         """
-        Allows to get item by index
+        Allows to get data by index
         """
         position = 0
-        node = self.head
-        if index == len(self) - 1:
-            node = self.tail
-            return node.item
+        get_data = self.head
+        if index == len(self):
+            get_data = self.tail
+            return get_data.data
         while position < index:
-            node = node.next_item
+            get_data = get_data.next_data
             position += 1
-        return node.item
+        return get_data.data
 
-    def delete(self, index):
+    def insert(self, new_data, index):
+        """
+        Inserts data into the list, using index
+        """
+        if index == 0:
+            self.prepend(new_data)
+        elif index == len(self):
+            self.append(new_data)
+        elif index > len(self):
+            raise IndexError("Index out of range")
+        else:
+            new_node = Node(new_data)
+            position = 1
+            inserted_data = self.head
+            while position < index:
+                inserted_data = inserted_data.next_data
+                position += 1
+            new_node.next_data = inserted_data.next_data
+            inserted_data.next_data = new_node
+
+    def delete(self, data_index):
         """
         Deletes item from list by index
         """
-        if index == 0:
-            self.head = self.head.next_item
+        if data_index > len(self):
+            raise IndexError("Index out of range")
+        if data_index == 0:
+            self.head = self.head.next_data
         node = self.head
         position = 0
         prev_node = node
-        while position < index:
+        while position < data_index:
             prev_node = node
-            node = node.next_item
+            node = node.next_data
             position += 1
-        prev_node.next_item = node.next_item
-        item = node.item
-        del node
-        return item
+        prev_node.next_data = node.next_data
+        data = node.data
+        return data
 
 
 if __name__ == '__main__':
     ll = LinkedList()
+    print(len(ll))
     ll.append(1213)
     ll.append(78967)
     ll.append('dsadas')
-    ll.insert(42343245236543, 2)
-    print(ll.get(2), '\n')
-
     ll.display()
-    print(len(ll), '\n')
-
-    ll.delete(0)
+    print('-----------------------')
+    ll.prepend(123456)
     ll.display()
-
-    print('\n', ll.get(0))
+    print('-----------------------')
+    print(len(ll))
+    print(ll.lookup(1213))
     print(ll.get(1))
-    print(ll.get(2))
+    print('-----------------------')
+    ll.insert('fdasfdas', 1)
+    ll.display()
+    print('-----------------------')
+    ll.delete(3)
+    ll.display()

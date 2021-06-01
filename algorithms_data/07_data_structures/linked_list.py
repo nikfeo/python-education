@@ -95,10 +95,3 @@ if __name__ == '__main__':
 
     ll.delete(0)
     ll.display()
-
-
-
-
-
-
-

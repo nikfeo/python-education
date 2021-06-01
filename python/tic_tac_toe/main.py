@@ -13,7 +13,9 @@ logging.basicConfig(filename='XO_game_log.txt',
 
 
 def draw_field(field_cells):
-    """Here will be a docstring"""
+    """
+    Draws field with '|' and '-' symbols and numbers
+    """
     print("-------------")
     for i in range(3):
         print("|", field_cells[i * 3 + 1], "|",
@@ -23,7 +25,9 @@ def draw_field(field_cells):
 
 
 def input_player_names():
-    """Here will be a docstring"""
+    """
+    Allows to input names of two players, returns them and dict with players sign 'X' and '0
+    '"""
     player_1 = input("Please, enter name first user: ")
     player_2 = input("Please, enter name second user: ")
     player_sign = {"X": player_1, "0": player_2}
@@ -31,7 +35,9 @@ def input_player_names():
 
 
 def check_win(field_cells):
-    """Here will be a docstring"""
+    """
+    Checks win in fixed list of tuples
+    """
     win_sets = [(1, 2, 3), (4, 5, 6), (7, 8, 9), (1, 4, 7),
                 (2, 5, 8), (3, 6, 9), (1, 5, 9), (3, 5, 7)]
     for i in win_sets:
@@ -41,7 +47,9 @@ def check_win(field_cells):
 
 
 def take_player_input(player_symbol, player_name, field_cells):
-    """Here will be a docstring"""
+    """
+    Validation of player's input during the game
+    """
     valid = False
     while not valid:
         player_input = input(f"{player_name} your turn! Enter number of free cell: ")
@@ -63,16 +71,20 @@ def take_player_input(player_symbol, player_name, field_cells):
 # ===================================================================================
 # LOGGING FUNCTIONS
 
-def write_to_file(winner, finish_game, player_sign):
-    """Here will be a docstring"""
+def write_to_file(winner, finished_game, player_sign):
+    """
+    Writes name of winner to the log file
+    """
     if winner:
-        logging.info(f"Winner: {player_sign[finish_game]}")
+        logging.info(f"Winner: {player_sign[finished_game]}")
     else:
         logging.info("Game finished with DRAW")
 
 
 def view_prev_games(filename):
-    """Here will be a docstring"""
+    """
+    Shows in console history of previous games
+    """
     with open(filename, "r") as file:
         previous_games = file.read()
     if len(previous_games) == 0:
@@ -85,7 +97,9 @@ def view_prev_games(filename):
 # MAIN FUNCTIONS
 
 def play_game(player_1, player_2, player_sign, player_score):
-    """Here will be a docstring"""
+    """
+    Starts game process and defines the winner
+    """
     print(f"Player 1: {player_1} plays with 'X'\n"
           f"Player 2: {player_2} plays with '0'")
     field_cells = list(range(10))
@@ -115,7 +129,9 @@ def play_game(player_1, player_2, player_sign, player_score):
 
 
 def restart_game(player1, player2, finished_game, player_sign, player_score):
-    """Here will be a docstring"""
+    """
+    Restarts game or exits ti main menu
+    """
     while True:
         print("1 - Restart game")
         print("2 - Exit to menu")
@@ -140,7 +156,9 @@ def restart_game(player1, player2, finished_game, player_sign, player_score):
 
 
 def show_menu():
-    """Here will be a docstring"""
+    """
+    Shows the main menu in console and allows to choose one of item
+    """
     player_1, player_2, player_sign = input_player_names()
     while True:
 
@@ -162,7 +180,7 @@ def show_menu():
         elif menu_choice == "4":
             sys.exit('You have exit the game')
         elif menu_choice == "5":
-            with open("history_game.txt", "r+") as file:
+            with open("XO_game_log.txt", "r+") as file:
                 file.truncate(0)
         else:
             print("Please enter number from menu")

@@ -122,21 +122,23 @@ class LinkedList:
             new_node.next_data = inserted_data.next_data
             inserted_data.next_data = new_node
 
-    def delete(self, data_index):
+    def delete(self, del_index):
         """
         Deletes item from list by index
         """
-        if data_index >= len(self):
+        if del_index >= len(self):
             raise IndexError("Index out of range")
-        if data_index == 0:
+        elif del_index == 0:
             self.head = self.head.next_data
-        node = self.head
-        position = 0
-        prev_node = node
-        while position < data_index:
-            node = node.next_data
-            position += 1
-        prev_node.next_data = node.next_data
+        else:
+            cur_node = self.head
+            cur_index = 0
+            while cur_index < del_index:
+                prev_node = cur_node
+                cur_node = cur_node.next_data
+                cur_index += 1
+                prev_node.next_data = cur_node
+            prev_node.next_data = cur_node.next_data
 
 
 if __name__ == '__main__':

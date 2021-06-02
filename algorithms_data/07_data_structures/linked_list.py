@@ -134,7 +134,6 @@ class LinkedList:
         position = 0
         prev_node = node
         while position < data_index:
-            prev_node = node
             node = node.next_data
             position += 1
         prev_node.next_data = node.next_data
@@ -142,22 +141,23 @@ class LinkedList:
 
 if __name__ == '__main__':
     ll = LinkedList()
-    print(len(ll))
+    print(f"length of list is: {len(ll)}")
     ll.append(1213)
     ll.append(78967)
     ll.append('dsadas')
-    ll.display()
+    print(ll)
     print('-----------------------')
     ll.prepend(123456)
-    ll.display()
+    print(ll)
     print('-----------------------')
-    print(len(ll))
-    print(ll.lookup(1213))
-    print(ll.get(1))
+    print(f"length of list is: {len(ll)}")
+    # print(ll.lookup(1213))
+    # print(ll.get(1))
     print('-----------------------')
     ll.insert('fdasfdas', 1)
-    ll.display()
+    print(f"length of list is: {len(ll)}")
+    print(ll)
     print('-----------------------')
     ll.delete(4)
-    print(f"linked list tail: {ll.tail.data}")
-    ll.display()
+    print(ll)
+    print(f"list tail: {ll.tail.data}")

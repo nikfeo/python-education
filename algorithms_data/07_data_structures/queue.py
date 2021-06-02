@@ -12,16 +12,6 @@ class Queue(LinkedList):
     def __init__(self):
         super().__init__()
 
-    def __len__(self):
-        if not self.head:
-            return 0
-        queue_length = 0
-        current_data = self.head
-        while current_data:
-            current_data = current_data.next_data
-            queue_length += 1
-        return queue_length
-
     def enqueue(self, data):
         """
          Adds node to the end of the queue
@@ -61,13 +51,12 @@ if __name__ == '__main__':
     print(f"length of queue is: {len(qq)}")
     print(f"Head of the queue is: {qq.head.data}")
     print(f"Tail of the queue is: {qq.tail.data}")
-    qq.display()
-    qq.peek()
+    print(qq)
     print(f"Last item in queue is: {qq.peek()}")
     print('-----------------------')
     print(f"Deleting last item in queue: {qq.dequeue()}")
     print(f"length of queue is: {len(qq)}")
     print(f"Head of the queue is: {qq.head.data}")
     print(f"Tail of the queue is: {qq.tail.data}")
-    qq.display()
+    print(qq)
     print(f"New last item in queue is: {qq.peek()}")

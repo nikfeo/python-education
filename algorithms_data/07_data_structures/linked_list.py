@@ -30,6 +30,16 @@ class LinkedList:
             list_length += 1
         return list_length
 
+    def __str__(self):
+        current = self.head
+        string = ''
+        while current:
+            string += str(current.data)
+            string += ' --> '
+            current = current.next_data
+        string += 'None'
+        return string
+
     def prepend(self, new_data):
         """
         Adds new node with new data to the beginning of list

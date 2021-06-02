@@ -35,7 +35,9 @@ class Queue(LinkedList):
             self.tail = node
 
     def dequeue(self):
-        """Method for retrieval a node to the end of the queue"""
+        """
+        Deletes node from the end of list
+        """
         if not self.head:
             print("The queue is empty")
         else:
@@ -48,15 +50,24 @@ class Queue(LinkedList):
         if not self.head:
             print("The queue is empty")
         else:
-            print(self.tail.data)
+            return self.tail.data
 
 
 if __name__ == '__main__':
     qq = Queue()
-    qq.enqueue(3)
+    qq.enqueue(5)
     qq.enqueue(12)
     qq.enqueue(1432)
-    print(len(qq))
+    print(f"length of queue is: {len(qq)}")
+    print(f"Head of the queue is: {qq.head.data}")
+    print(f"Tail of the queue is: {qq.tail.data}")
+    qq.display()
     qq.peek()
-    qq.dequeue()
-    qq.peek()
+    print(f"Last item in queue is: {qq.peek()}")
+    print('-----------------------')
+    print(f"Deleting last item in queue: {qq.dequeue()}")
+    print(f"length of queue is: {len(qq)}")
+    print(f"Head of the queue is: {qq.head.data}")
+    print(f"Tail of the queue is: {qq.tail.data}")
+    qq.display()
+    print(f"New last item in queue is: {qq.peek()}")

@@ -116,7 +116,7 @@ class LinkedList:
         """
         Deletes item from list by index
         """
-        if data_index > len(self):
+        if data_index >= len(self):
             raise IndexError("Index out of range")
         if data_index == 0:
             self.head = self.head.next_data
@@ -128,8 +128,6 @@ class LinkedList:
             node = node.next_data
             position += 1
         prev_node.next_data = node.next_data
-        data = node.data
-        return data
 
 
 if __name__ == '__main__':
@@ -150,5 +148,6 @@ if __name__ == '__main__':
     ll.insert('fdasfdas', 1)
     ll.display()
     print('-----------------------')
-    ll.delete(3)
+    ll.delete(4)
+    print(f"linked list tail: {ll.tail.data}")
     ll.display()

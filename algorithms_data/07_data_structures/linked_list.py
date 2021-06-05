@@ -87,6 +87,7 @@ class LinkedList:
             else:
                 lookup_data = lookup_data.next_data
                 data_index += 1
+        return data_index
 
     def get(self, index):
         """
@@ -138,7 +139,10 @@ class LinkedList:
                 cur_node = cur_node.next_data
                 cur_index += 1
                 prev_node.next_data = cur_node
+                if del_index == len(self) - 1:
+                    self.tail = prev_node
             prev_node.next_data = cur_node.next_data
+
 
 
 if __name__ == '__main__':
@@ -164,4 +168,4 @@ if __name__ == '__main__':
     print('-----------------------')
     ll.delete(4)
     print(ll)
-    print(f"list tail: {ll.tail.data}")
+    print(f"THIS IS TAIL -----> {ll.tail.data}")

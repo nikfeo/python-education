@@ -40,6 +40,12 @@ class LinkedList:
         string += 'None'
         return string
 
+    def __iter__(self):
+        item = self.head
+        while item:
+            yield item.data
+            item = item.next_data
+
     def prepend(self, new_data):
         """
         Adds new node with new data to the beginning of list

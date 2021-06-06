@@ -83,7 +83,8 @@ class LinkedList:
             if lookup_data.data == data:
                 return data_index
             if not lookup_data.next_data:
-                raise ValueError("Lookup data is not in the linked list")
+                # raise ValueError("Lookup data is not in the linked list")
+                return False
             else:
                 lookup_data = lookup_data.next_data
                 data_index += 1

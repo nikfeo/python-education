@@ -21,7 +21,7 @@ class HashTable(LinkedList):
     """
     def __init__(self):
         super().__init__()
-        self.hash_table_keys = []
+        self.hash_table_keys = LinkedList()
 
     @staticmethod
     def hashing(data):
@@ -58,8 +58,9 @@ class HashTable(LinkedList):
         """
         curr_node = self.head
         position = 0
-        if key not in self.hash_table_keys:
-            raise ValueError(f"The key '{key}' does not exist")
+        if not self.hash_table_keys.lookup(key):
+            # raise ValueError(f"The key '{key}' does not exist")
+            return False
         while curr_node.next_data:
             if key == curr_node.key:
                 return curr_node.data
@@ -89,8 +90,9 @@ class HashTable(LinkedList):
         """
         cur_node = self.head
         position = 0
-        if key not in self.hash_table_keys:
-            raise ValueError(f"The key '{key}' does not exist")
+        if not self.hash_table_keys.lookup(key):
+            # raise ValueError(f"The key '{key}' does not exist")
+            return False
         elif cur_node.key == key:
             self.head = self.head.next_data
         else:
@@ -102,7 +104,8 @@ class HashTable(LinkedList):
                 if key == self.tail.key:
                     self.tail = cur_node
             prev_node.next_data = cur_node.next_data
-        self.hash_table_keys.remove(key)
+        del_index = self.hash_table_keys.lookup(key)
+        self.hash_table_keys.delete(del_index)
 
 
 if __name__ == '__main__':
@@ -128,4 +131,5 @@ if __name__ == '__main__':
     print(ht)
     print(f"THIS IS HEAD -----> {ht.head.key}: {ht.head.data}")
     print(f"THIS IS TAIL -----> {ht.tail.key}: {ht.tail.data}")
+    print(f"HASH TABLE KEYS: {ht.hash_table_keys}")
 

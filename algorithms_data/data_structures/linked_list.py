@@ -102,6 +102,8 @@ class LinkedList:
         """
         position = 0
         get_data = self.head
+        if index > len(self):
+            raise IndexError("Inddex out of range")
         if index == len(self):
             get_data = self.tail
             return get_data.data
@@ -176,3 +178,8 @@ if __name__ == '__main__':
     ll.delete(4)
     print(ll)
     print(f"THIS IS TAIL -----> {ll.tail.data}")
+    test_list = LinkedList()
+    test_string = 'qwertyuiopasdfghjklz'
+    for i in test_string:
+        test_list.append(i)
+    print(test_list)

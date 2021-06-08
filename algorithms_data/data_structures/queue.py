@@ -2,7 +2,7 @@
 This module describes queue data structure
 """
 
-from linked_list import Node, LinkedList
+from algorithms_data.data_structures.linked_list import Node, LinkedList
 
 
 class Queue(LinkedList):
@@ -14,15 +14,14 @@ class Queue(LinkedList):
 
     def enqueue(self, data):
         """
-         Adds node to the end of the queue
-         """
+        Adds node to the end of the queue
+        """
         node = Node(data)
         if not self.head:
             self.head = node
             self.tail = node
         else:
-            self.tail.next_data = node
-            self.tail = node
+            self.prepend(node.data)
 
     def dequeue(self):
         """
@@ -30,6 +29,7 @@ class Queue(LinkedList):
         """
         if not self.head:
             print("The queue is empty")
+            return False
         else:
             self.delete(len(self) - 1)
 
@@ -39,6 +39,7 @@ class Queue(LinkedList):
         """
         if not self.head:
             print("The queue is empty")
+            return False
         else:
             return self.tail.data
 

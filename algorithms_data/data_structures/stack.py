@@ -2,7 +2,7 @@
 This module describes stack data structure
 """
 
-from linked_list import Node, LinkedList
+from algorithms_data.data_structures.linked_list import Node, LinkedList
 
 
 class Stack(LinkedList):
@@ -19,6 +19,7 @@ class Stack(LinkedList):
         node = Node(data)
         if not self.head:
             self.head = node
+            self.tail = node
         else:
             node.next_data = self.head
             self.head = node
@@ -28,7 +29,8 @@ class Stack(LinkedList):
         Removes node from stack
         """
         if not self.head:
-            print("Stack is empty")
+            # print("Stack is empty")
+            raise ValueError("Stack is empty")
         else:
             self.delete(0)
 
@@ -38,6 +40,7 @@ class Stack(LinkedList):
         """
         if not self.head:
             print("The stack is empty")
+            return False
         else:
             return self.head.data
 

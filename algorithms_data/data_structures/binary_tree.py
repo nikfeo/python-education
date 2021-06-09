@@ -84,7 +84,7 @@ class BinaryTree:
         Help private recursive function for lookup() function
         """
         if value == cur_node.value:
-            return True, value
+            return cur_node
         elif value < cur_node.value and cur_node.left_child:
             return self._lookup(value, cur_node.left_child)
         elif value > cur_node.value and cur_node.right_child:
@@ -104,8 +104,23 @@ class BinaryTree:
         """
         Help private recursive function for find() function
         """
-        if value == cur_node.value:
-            return cur_node
+        if value == cur_node.value == self.root.value:
+            if cur_node.right_child and cur_node.left_child:
+                return f'sought node: {cur_node.value} is root, left child: {cur_node.left_child.value}, ' \
+                       f'right child: {cur_node.right_child.value}'
+            else:
+                return f'sought node: {cur_node.value} is root and has no children'
+        elif value == cur_node.value and not cur_node.left_child and not cur_node.right_child:
+            return f'sought node: {cur_node.value}, parent: {cur_node.parent.value}, no children'
+        elif value == cur_node.value and cur_node.left_child and not cur_node.right_child:
+            return f'sought node: {cur_node.value}, parent: {cur_node.parent.value},' \
+                   f' only left child: {cur_node.left_child.value}'
+        elif value == cur_node.value and cur_node.right_child and not cur_node.left_child:
+            return f'sought node: {cur_node.value}, parent: {cur_node.parent.value},' \
+                   f' only right child: {cur_node.right_child.value}'
+        elif value == cur_node.value and cur_node.right_child and cur_node.left_child:
+            return f'sought node: {cur_node.value}, parent: {cur_node.parent.value},' \
+                   f' left child: {cur_node.left_child.value}, right child: {cur_node.right_child.value}'
         elif value < cur_node.value and cur_node.left_child:
             return self._find(value, cur_node.left_child)
         elif value > cur_node.value and cur_node.right_child:
@@ -114,9 +129,9 @@ class BinaryTree:
     def delete_value(self, value):
         """
         Help function for deleting node
-        Returns value argument in find() function to use it in delete_node()
+        Returns value argument in lookup() function to use it in delete_node()
         """
-        return self.delete_node(self.find(value))
+        return self.delete_node(self.lookup(value))
 
     def delete_node(self, node):
         """
@@ -208,30 +223,19 @@ class BinaryTree:
             self._show_tree(cur_node.right_child)
 
 
-def fill_tree_test(tree, num_elems=20, max_int=1000):
-    """
-    Functions to fill test tree with random values
-    """
-    for item in range(num_elems):
-        cur_elem = randint(0, max_int)
-        tree.insert(cur_elem)
-    return tree
+random_list = [7, 5, 152, 384, 450, 235, 399, 154, 316, 174, 244,
+               498, 55, 245, 68, 81, 411, 95, 307, 363, 483, 453, 348, 191]
 
 
 if __name__ == '__main__':
     test_tree = BinaryTree()
-    # test_tree = fill_tree_test(test_tree)
-    test_tree.insert(5)
-    test_tree.insert(1)
-    test_tree.insert(3)
-    test_tree.insert(2)
-    test_tree.insert(7)
-    test_tree.insert(6)
-    test_tree.insert(10)
-    test_tree.insert(20)
+    for i in random_list:
+        test_tree.insert(i)
+    # print(f"Tree height is: {test_tree.height()}")
+    # print(test_tree.lookup(30))
+    # test_tree.delete_value(3)
     test_tree.show_tree()
-    print(f"Tree height is: {test_tree.height()}")
-    print(test_tree.lookup(10))
-    print(test_tree.lookup(30))
-    test_tree.delete_value(3)
+    test_tree.delete_value(152)
+    print(test_tree.lookup(152))
     test_tree.show_tree()
+    print(test_tree.lookup(411))

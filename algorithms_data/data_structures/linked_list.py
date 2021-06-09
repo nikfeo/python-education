@@ -46,6 +46,9 @@ class LinkedList:
             yield item.data
             item = item.next_data
 
+    def __getitem__(self, index):
+        return self.get(index)
+
     def prepend(self, new_data):
         """
         Adds new node with new data to the beginning of list
@@ -151,35 +154,3 @@ class LinkedList:
                 if del_index == len(self) - 1:
                     self.tail = prev_node
             prev_node.next_data = cur_node.next_data
-
-
-
-if __name__ == '__main__':
-    ll = LinkedList()
-    print(f"length of list is: {len(ll)}")
-    ll.append(1213)
-    ll.append(78967)
-    ll.append('dsadas')
-    print(f"list head: {ll.head.data}")
-    print(ll)
-    print('-----------------------')
-    ll.prepend(123456)
-    print(f"list head: {ll.head.data}")
-    print(ll)
-    print('-----------------------')
-    print(f"length of list is: {len(ll)}")
-    # print(ll.lookup(1213))
-    # print(ll.get(1))
-    print('-----------------------')
-    ll.insert('fdasfdas', 1)
-    print(f"length of list is: {len(ll)}")
-    print(ll)
-    print('-----------------------')
-    ll.delete(4)
-    print(ll)
-    print(f"THIS IS TAIL -----> {ll.tail.data}")
-    test_list = LinkedList()
-    test_string = 'qwertyuiopasdfghjklz'
-    for i in test_string:
-        test_list.append(i)
-    print(test_list)

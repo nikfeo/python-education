@@ -42,22 +42,3 @@ class Queue(LinkedList):
             return False
         else:
             return self.tail.data
-
-
-if __name__ == '__main__':
-    qq = Queue()
-    qq.enqueue(5)
-    qq.enqueue(12)
-    qq.enqueue(1432)
-    print(f"length of queue is: {len(qq)}")
-    print(f"Head of the queue is: {qq.head.data}")
-    print(f"Tail of the queue is: {qq.tail.data}")
-    print(qq)
-    print(f"Last item in queue is: {qq.peek()}")
-    print('-----------------------')
-    print(f"Deleting last item in queue: {qq.dequeue()}")
-    print(f"length of queue is: {len(qq)}")
-    print(f"Head of the queue is: {qq.head.data}")
-    print(f"Tail of the queue is: {qq.tail.data}")
-    print(qq)
-    print(f"New last item in queue is: {qq.peek()}")

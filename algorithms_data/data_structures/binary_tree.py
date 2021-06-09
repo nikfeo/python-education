@@ -221,21 +221,3 @@ class BinaryTree:
             print(f"{print_children}")
             self._show_tree(cur_node.left_child)
             self._show_tree(cur_node.right_child)
-
-
-random_list = [7, 5, 152, 384, 450, 235, 399, 154, 316, 174, 244,
-               498, 55, 245, 68, 81, 411, 95, 307, 363, 483, 453, 348, 191]
-
-
-if __name__ == '__main__':
-    test_tree = BinaryTree()
-    for i in random_list:
-        test_tree.insert(i)
-    # print(f"Tree height is: {test_tree.height()}")
-    # print(test_tree.lookup(30))
-    # test_tree.delete_value(3)
-    test_tree.show_tree()
-    test_tree.delete_value(152)
-    print(test_tree.lookup(152))
-    test_tree.show_tree()
-    print(test_tree.lookup(411))

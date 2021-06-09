@@ -43,19 +43,3 @@ class Stack(LinkedList):
             return False
         else:
             return self.head.data
-
-
-if __name__ == '__main__':
-    st = Stack()
-    st.push(3)
-    st.push(12)
-    st.push('fdasaase')
-    st.push(864.1)
-    print(st)
-    print(f"Last item in stack is: {st.peek()}")
-    print(f"length of stack is: {len(st)}")
-    print('-----------------------')
-    print(f"Deleting last item in queue: {st.head.data}")
-    st.pop()
-    print(f"New stack: {st}")
-    print(f"length of new stack is: {len(st)}")

@@ -18,9 +18,3 @@ def factorial(number: int):
             return 1
         else:
             return number * factorial(number-1)
-
-
-if __name__ == '__main__':
-    print(factorial(1))
-    print(factorial(6))
-    print(factorial(34))

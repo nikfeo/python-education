@@ -13,7 +13,7 @@ def binary_search(item, search_list):
         supposed_item = search_list[middle_index]
         if supposed_item == item:
             print(f"Item: '{item}' ----> index: '{middle_index}")
-            return True
+            return item
         elif supposed_item < item:
             head_index = middle_index + 1
         else:

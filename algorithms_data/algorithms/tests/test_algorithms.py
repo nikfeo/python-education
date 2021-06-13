@@ -10,6 +10,12 @@ from algorithms_data.algorithms.binary_search import binary_search
 from algorithms_data.algorithms.quick_sort import quick_sort_rec, quick_sort_iter
 
 
+test_list_random = []
+for each in range(5000):
+    random_value = randint(0, 10000)
+    test_list_random.append(random_value)
+
+
 # Tests for recursive factorial
 # =============================================================
 @pytest.mark.parametrize('test_value, expected', [(3, 6), (5, 120),
@@ -65,6 +71,18 @@ def test_quick_sort_iterable(test_list_1):
     assert quick_sort_iter(test_list_2) == sorted(test_list_2)
 
 
+def test_quick_rec_sort_random_collection():
+    my_sort_rec = quick_sort_rec(test_list_random)
+    default_sort = sorted(test_list_random)
+    assert my_sort_rec == default_sort
+
+
+def test_quick_iter_sort_random_collection():
+    my_sort_iter = quick_sort_iter(test_list_random)
+    default_sort = sorted(test_list_random)
+    assert my_sort_iter == default_sort
+
+
 # Tests for binary search algorithm
 # =============================================================
 
@@ -75,7 +93,24 @@ def test_list_3():
     return quick_sort_rec(test_list_3)
 
 
+def test_binary_search_not_value(test_list_3):
+    with pytest.raises(ValueError):
+        assert binary_search(5, test_list_3) == 5
+
+
+def test_binary_search_empty_list():
+    empty_list = []
+    with pytest.raises(ValueError):
+        assert binary_search(1, empty_list) == 1
+
+
 def test_binary_search(test_list_3):
     assert binary_search(14, test_list_3) == 14
     assert binary_search(-34, test_list_3) == -34
     assert binary_search(0, test_list_3) == 0
+
+
+def test_binary_search_random():
+    my_list_my_sort = quick_sort_rec(test_list_random)
+    for item in my_list_my_sort:
+        assert binary_search(item, my_list_my_sort) == item

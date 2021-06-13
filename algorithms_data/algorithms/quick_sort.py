@@ -6,6 +6,9 @@ from random import randint
 
 
 def quick_sort_rec(sort_list):
+    """
+    Recursive quick sort algorithm
+    """
     if len(sort_list) <= 1:
         return sort_list
     pivot = sort_list[len(sort_list) // 2]
@@ -22,8 +25,9 @@ def quick_sort_rec(sort_list):
 
 
 def quick_sort_iter(sort_list):
-    """ iterable quick sort """
-
+    """
+    Iterable quick sort algorithms
+    """
     length = len(sort_list)
     if length <= 1:
         return sort_list

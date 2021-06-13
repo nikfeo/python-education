@@ -8,6 +8,9 @@ def binary_search(item, search_list):
     head_index = 0
     tail_index = len(search_list) - 1
 
+    if not search_list:
+        raise ValueError("The list is empty!")
+
     while head_index <= tail_index:
         middle_index = (head_index + tail_index) // 2
         supposed_item = search_list[middle_index]
@@ -18,8 +21,7 @@ def binary_search(item, search_list):
             head_index = middle_index + 1
         else:
             tail_index = middle_index - 1
-    print(f"The item '{item}' is not in this list")
-    return False
+    raise ValueError(f"The item '{item}' is not in this list")
 
 
 if __name__ == '__main__':
@@ -29,6 +31,6 @@ if __name__ == '__main__':
     print(ll)
     binary_search(491, ll)
     binary_search(858, ll)
-    binary_search(1, ll)
     binary_search(3, ll)
     binary_search(978, ll)
+    binary_search(1, ll)

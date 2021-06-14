@@ -1,6 +1,6 @@
 
 CREATE TABLE Users(
-    user_id INT,
+    user_id SERIAL,
     email VARCHAR(255),
     password VARCHAR(255),
     first_name VARCHAR(255),
@@ -20,14 +20,14 @@ CREATE TABLE Order_status(
 );
 
 CREATE TABLE Categories(
-    category_id INT,
+    category_id SERIAL,
     category_title VARCHAR(255),
     category_description TEXT,
     PRIMARY KEY (category_id)
 );
 
 CREATE TABLE Carts(
-    cart_id INT,
+    cart_id SERIAL,
     Users_user_id INT,
     subtotal DECIMAL,
     total DECIMAL,
@@ -39,7 +39,7 @@ CREATE TABLE Carts(
 
 
 CREATE TABLE Orders(
-    order_id INT,
+    order_id SERIAL,
     Carts_cart_id INT,
     Order_status_order_status_id INT,
     shipping_total DECIMAL,
@@ -56,7 +56,7 @@ CREATE TABLE Orders(
 
 
 CREATE TABLE Products(
-    product_id INT,
+    product_id SERIAL,
     product_title VARCHAR(255),
     product_description TEXT,
     in_stock INT,
@@ -69,7 +69,7 @@ CREATE TABLE Products(
 );
 
 CREATE TABLE Cart_product(
-    carts_cart_id INT,
+    carts_cart_id SERIAL,
     products_product_id INT,
     FOREIGN KEY (carts_cart_id)
         REFERENCES Carts(cart_id),

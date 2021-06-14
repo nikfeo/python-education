@@ -1,0 +1,5 @@
+.env.list
+docker-compose.yml
+Dockerfile
+/csv/
+ER_diagram.PNG

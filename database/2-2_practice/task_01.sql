@@ -1,11 +1,10 @@
 /* Task 1 */
 
-/* Show all users */
+/* 1.1 Show all users */
 SELECT * FROM users;
 
-/* Show all products */
+/* 1.2 Show all products */
 SELECT * FROM products;
 
-/* Show all order statuses */
+/* 1.3 Show all order statuses */
 SELECT * FROM order_status;
-
